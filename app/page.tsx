@@ -7,7 +7,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className="text-4xl font-bold text-emerald-500">Welcome to Rorn System</h1>
       <p className="mt-4 text-lg">
-        This is the home page. for testing
+        This is the home page. for testing update 123
       </p>
 
       <div>
