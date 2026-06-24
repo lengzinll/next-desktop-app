@@ -1,20 +1,19 @@
-name: "Build Tauri Windows"
+name: "Tauri Release"
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - "v*"
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -28,5 +27,13 @@ jobs:
       - name: Build Next.js
         run: bun run build
 
-      - name: Build Tauri Windows App
-        run: bunx tauri build
+      - name: Build and Release Tauri App
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Rorn System ${{ github.ref_name }}"
+          releaseBody: "Auto release build"
+          releaseDraft: false
+          prerelease: false
