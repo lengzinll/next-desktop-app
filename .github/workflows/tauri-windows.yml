@@ -13,27 +13,35 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Node
+      # ✅ Rust setup (IMPORTANT)
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # ✅ Node setup
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # Bun
       - name: Install Bun
         run: npm install -g bun
 
+      # dependencies
       - name: Install dependencies
         run: bun install
 
+      # build frontend
       - name: Build Next.js
         run: bun run build
 
-      - name: Build and Release Tauri App
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 🔥 THIS is the correct Tauri build step
+      - name: Build Tauri App
+        run: bunx tauri build
+
+      # 📦 Upload artifacts manually (IMPORTANT)
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: "Rorn System ${{ github.ref_name }}"
-          releaseBody: "Auto release build"
-          releaseDraft: false
-          prerelease: false
+          name: windows-exe
+          path: src-tauri/target/release/bundle/**/*
