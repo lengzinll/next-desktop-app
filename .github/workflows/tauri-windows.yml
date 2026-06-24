@@ -1,4 +1,4 @@
-name: "Build Tauri Windows App"
+name: "Build Tauri Windows"
 
 on:
   workflow_dispatch:
