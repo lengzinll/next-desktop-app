@@ -13,11 +13,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # ✅ Rust setup (IMPORTANT)
+      # Rust setup
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      # ✅ Node setup
+      # Node setup
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -35,13 +35,23 @@ jobs:
       - name: Build Next.js
         run: bun run build
 
-      # 🔥 THIS is the correct Tauri build step
+      # build desktop app
       - name: Build Tauri App
         run: bunx tauri build
 
-      # 📦 Upload artifacts manually (IMPORTANT)
+      # 📦 (OPTIONAL) keep artifacts for debugging
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
           name: windows-exe
           path: src-tauri/target/release/bundle/**/*
+
+      # 🚀 REAL RELEASE STEP (THIS IS WHAT YOU WERE MISSING)
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Rorn System ${{ github.ref_name }}"
+          files: src-tauri/target/release/bundle/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
