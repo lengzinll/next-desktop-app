@@ -12,7 +12,7 @@ export default function Home() {
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary transition-colors duration-300">
-            Rorn System Customizer
+            Rorn System New Update
           </h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
             Dynamically adjust system-wide styles using global CSS variables.
