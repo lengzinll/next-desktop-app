@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: windows-latest
 
+    # 🔥 THIS IS THE FIX (required for GitHub Release)
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -46,7 +50,7 @@ jobs:
           name: windows-exe
           path: src-tauri/target/release/bundle/**/*
 
-      # 🚀 REAL RELEASE STEP (THIS IS WHAT YOU WERE MISSING)
+      # 🚀 REAL RELEASE STEP
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
