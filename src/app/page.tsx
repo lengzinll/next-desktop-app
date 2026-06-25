@@ -15,7 +15,7 @@ export default function Home() {
             Rorn System Customizer
           </h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            Dynamically adjust system-wide styles using global CSS variables. Try changing the border radius or theme color below.
+            Dynamically adjust system-wide styles using global CSS variables.
           </p>
         </div>
 
