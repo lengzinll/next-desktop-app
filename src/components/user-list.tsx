@@ -10,7 +10,7 @@ export function UserList() {
   const [theme] = useTheme();
 
   useEffect(() => {
-    fetch('/api')
+    fetch('https://jsonplaceholder.typicode.com/todos')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error));
@@ -27,13 +27,12 @@ export function UserList() {
           <p className="text-xs text-muted-foreground">Loading mockup users...</p>
         ) : (
           <ul className="space-y-3">
-            {data.slice(0, 3).map((user: any) => (
-              <li key={user.id} className="p-3 bg-background/50 rounded-md border border-border/30 flex justify-between items-center">
+            {data.slice(0, 3).map((raw: any) => (
+              <li key={raw.id} className="p-3 bg-background/50 rounded-md border border-border/30 flex justify-between items-center">
                 <div>
-                  <h4 className="text-xs font-semibold">{user.name}</h4>
-                  <p className="text-[10px] text-muted-foreground">{user.email}</p>
+                  <h4 className="text-xs font-semibold">{raw.title}</h4>
+                  <p className="text-[10px] text-muted-foreground font-semibold mt-2">{raw.id}</p>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">Active</span>
               </li>
             ))}
           </ul>
